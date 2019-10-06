@@ -1,4 +1,7 @@
 ﻿@page "/counter"
+@inject IJsAlertifyService  JsAlertifyService
+@using InitBlaz.Client.Services.Js
+@using InitBlaz.Client.Helpers
 
 <h1>Counter</h1>
 
@@ -9,8 +12,9 @@
 @code {
     int currentCount = 0;
 
-    void IncrementCount()
+    async Task IncrementCount()
     {
         currentCount++;
+        await JsAlertifyService.Open($"Le nombre est {currentCount}", TypeAlertify.Success);
     }
 }
