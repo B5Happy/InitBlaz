@@ -2,6 +2,10 @@
 
 namespace InitBlaz.Client
 {
+    static class Constants
+    {
+        public const string URL_Base = "http://localhost:57931/";
+    }
     public class Program
     {
         public static void Main(string[] args)

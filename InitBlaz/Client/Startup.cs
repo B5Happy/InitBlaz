@@ -1,3 +1,4 @@
+using InitBlaz.Client.Services.Http;
 using InitBlaz.Client.Services.Js;
 using Microsoft.AspNetCore.Components.Builder;
 using Microsoft.Extensions.DependencyInjection;
@@ -8,6 +9,7 @@ namespace InitBlaz.Client
     {
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<IHttpsWeatherService, HttpsWeatherService>();
             services.AddSingleton<IJsAlertifyService, JsAlertifyService>();
         }
 
