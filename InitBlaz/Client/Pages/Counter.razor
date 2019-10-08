@@ -9,6 +9,10 @@
 
 <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
 
+<br/>
+
+<UpDownCounter Counter="@currentCount" CounterChanged="@CouterChangedFireEvent" />
+
 @code {
     int currentCount = 0;
 
@@ -16,5 +20,11 @@
     {
         currentCount++;
         await JsAlertifyService.Open($"Le nombre est {currentCount}", TypeAlertify.Success);
+    }
+
+    void CouterChangedFireEvent(int counter)
+    {
+        currentCount = counter;
+        StateHasChanged();
     }
 }
