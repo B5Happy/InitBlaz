@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using InitBlaz.Server.Model;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,5 +13,7 @@ namespace InitBlaz.Server.Data
         {
 
         }
+
+        public DbSet<Instrument> Instruments { get; set; }
     }
 }
