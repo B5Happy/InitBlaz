@@ -27,6 +27,8 @@ namespace InitBlaz.Server
         {
             services.AddDbContext<DataContext>(x => x.UseLazyLoadingProxies().UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddMvc().AddNewtonsoftJson();
+            services.AddOpenApiDocument();
+            services.AddTransient<Seed>();
             services.AddResponseCompression(opts =>
             {
                 opts.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(
@@ -35,8 +37,14 @@ namespace InitBlaz.Server
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, Seed seeder)
         {
+
+            app.UseOpenApi();
+            app.UseSwaggerUi3();
+
+            seeder.SeedInstrument();
+
             app.UseResponseCompression();
 
             if (env.IsDevelopment())
