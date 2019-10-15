@@ -1,4 +1,6 @@
+using AutoMapper;
 using InitBlaz.Server.Data;
+using InitBlaz.Server.Mappings;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.ResponseCompression;
@@ -29,6 +31,13 @@ namespace InitBlaz.Server
             services.AddMvc().AddNewtonsoftJson();
             services.AddOpenApiDocument();
             services.AddTransient<Seed>();
+            services.AddAutoMapper(typeof(Startup));
+            var mappingConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new MappingProfile());
+            });
+            IMapper mapper = mappingConfig.CreateMapper();
+            services.AddSingleton(mapper);
             services.AddResponseCompression(opts =>
             {
                 opts.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(
