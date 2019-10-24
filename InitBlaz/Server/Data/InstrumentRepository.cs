@@ -23,5 +23,10 @@ namespace InitBlaz.Server.Data
         {
             return await _context.Instruments.OrderBy(x => x.Name).ToListAsync();
         }
+
+        public async Task<Instrument> GetInstrument(int id)
+        {
+            return await _context.Instruments.Where(z => z.Id == id).FirstOrDefaultAsync();
+        }
     }
 }

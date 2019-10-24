@@ -12,5 +12,7 @@ namespace InitBlaz.Server.Data
     public interface IInstrumentRepository
     {
         Task<List<Instrument>> GetInstruments();
+
+        Task<Instrument> GetInstrument(int id);
     }
 }

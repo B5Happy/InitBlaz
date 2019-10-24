@@ -1,8 +1,7 @@
 ﻿using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using InitBlaz.Server.Model;
+using InitBlaz.Shared.Dto.Output.Instrument.ForList;
+using InitBlaz.Shared.Dto.Output.Instrument.ForSingleSelect;
 
 namespace InitBlaz.Server.Mappings
 {
@@ -10,7 +9,8 @@ namespace InitBlaz.Server.Mappings
     {
         public MappingProfile()
         {
-
+            CreateMap<Instrument, DtoOutputInstrumentForList>();
+            CreateMap<Instrument, DtoOutputInstrumentForSingleSelect>();
         }
     }
 }
