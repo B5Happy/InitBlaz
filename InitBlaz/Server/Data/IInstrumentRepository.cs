@@ -14,5 +14,10 @@ namespace InitBlaz.Server.Data
         Task<List<Instrument>> GetInstruments();
 
         Task<Instrument> GetInstrument(int id);
+
+        void Delete<T>(T entity) where T : class;
+
+        Task<bool> SaveAll();
+
     }
 }

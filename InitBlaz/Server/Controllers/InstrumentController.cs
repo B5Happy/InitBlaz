@@ -45,5 +45,27 @@ namespace InitBlaz.Server.Controllers
             return Ok(itemsDto);
         }
 
+        [HttpDelete("{id}")]
+        [SwaggerResponse(HttpStatusCode.OK, typeof(void), Description ="Ok")]
+        [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Impossible d'effacer l'instrument")]
+        public async Task<IActionResult> DeleteInstrument(int id)
+        {
+            var item = await _repository.GetInstrument(id);
+            if(item == null)
+            {
+                return BadRequest("Error: L'instrument n'existe pas.");
+            }
+
+            _repository.Delete(item);
+            if(await _repository.SaveAll())
+            {
+                return Ok();
+            }
+            else
+            {
+                return BadRequest("Impossible d'effacer l'instrument");
+            }
+        }
+
     }
 }

@@ -13,6 +13,7 @@ namespace InitBlaz.Server.Data
     public class InstrumentRepository : IInstrumentRepository
     {
         private readonly DataContext _context;
+ 
 
         public InstrumentRepository(DataContext context)
         {
@@ -28,5 +29,16 @@ namespace InitBlaz.Server.Data
         {
             return await _context.Instruments.Where(z => z.Id == id).FirstOrDefaultAsync();
         }
+
+        public void Delete<T>(T entity) where T : class
+        {
+            _context.Remove(entity);
+        }
+
+        public async Task<bool> SaveAll()
+        {
+            return await _context.SaveChangesAsync() > 0;
+        }
+
     }
 }
