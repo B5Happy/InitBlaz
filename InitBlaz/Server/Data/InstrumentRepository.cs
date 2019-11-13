@@ -40,5 +40,10 @@ namespace InitBlaz.Server.Data
             return await _context.SaveChangesAsync() > 0;
         }
 
+        public void Add<T>(T entity) where T : class
+        {
+            _context.Add(entity);
+        }
+
     }
 }

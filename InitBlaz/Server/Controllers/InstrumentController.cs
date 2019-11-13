@@ -5,6 +5,8 @@ using System.Net;
 using System.Threading.Tasks;
 using AutoMapper;
 using InitBlaz.Server.Data;
+using InitBlaz.Server.Model;
+using InitBlaz.Shared.Dto.Input.Instrument.ForCreate;
 using InitBlaz.Shared.Dto.Output.Instrument.ForList;
 using InitBlaz.Shared.Dto.Output.Instrument.ForSingleSelect;
 using Microsoft.AspNetCore.Http;
@@ -65,6 +67,25 @@ namespace InitBlaz.Server.Controllers
             {
                 return BadRequest("Impossible d'effacer l'instrument");
             }
+        }
+
+        [HttpPost]
+        [SwaggerResponse(HttpStatusCode.OK, typeof(void), Description ="Ok")]
+        [SwaggerResponse(HttpStatusCode.BadRequest, typeof(void), Description = "Impossible de créer cet instrument")]
+        public async Task<IActionResult> CreateInstrument(DtoInputInstrumentForCreate dto)
+        {
+            var item = new Instrument
+            {
+                Name = dto.Name,
+                Strings = dto.Strings,
+                YearManufacture = dto.YearManufacture
+            };
+
+            _repository.Add(item);
+
+            if (!await _repository.SaveAll())
+                return BadRequest("Impossible de créer cet instrument");
+            return Ok();
         }
 
     }
